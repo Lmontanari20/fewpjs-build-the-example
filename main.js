@@ -4,9 +4,27 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+window.addEventListener('DOMContentLoaded', {
 
+})
 
+function onLikeClick(like) {
+  let promise = mimicServerCall()
+  promise.then(() => {
+    like.textContent === FULL_HEART ? EMPTY_HEART : FULL_HEART
+  }).catch((error) => {
+    let errorElement = document.getElementById('modal')
+    errorElement.className = ''
+    setTimeout(() => {errorElement.querySelector('h2').textContent = error.message}, 500)
+  })
+}
 
+function addLikeListener() {
+  let likes = document.getElementsByClassName('like-glyph')
+  likes.forEach(like => {
+    like.addEventListener('click', () => onLikeClick(like))
+  })
+}
 //------------------------------------------------------------------------------
 // Ignore after this point. Used only for demo purposes
 //------------------------------------------------------------------------------
